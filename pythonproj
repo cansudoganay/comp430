@@ -1,1 +1,125 @@
+import csv
+import pandas as pd
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+
+
+##clean the adult csv
+f=pd.read_csv('adult.csv')
+f=f[(f !='?').all(axis=1)]
+f.to_csv("cleanadult.csv", index=False)
+
+
+## q(D) values
+Preschool = 1
+first4th = 8
+fifth6th = 22
+ninth = 38
+twelfth = 43
+seventh8th = 55
+tenth = 82
+eleventh = 89
+AssocAcdm = 398
+Doctorate = 399
+AssocVoc = 504
+ProfSchool = 592
+Masters = 1393
+SomeCollege = 1990
+HSGrad = 2416
+Bachelors = 3178
+
+##S(q)
+Sensitivity = 1
+
+## Lap(0, S(q)/epsilon)
+
+## epsilon will be 0.01, 0.05, 0.1, 0.5, 1.0
+epsilon = 0.01
+randomSample1 = np.random.laplace(0, 1/epsilon)
+randomSample2 = np.random.laplace(0, 1/epsilon)
+randomSample3 = np.random.laplace(0, 1/epsilon)
+randomSample4 = np.random.laplace(0, 1/epsilon)
+randomSample5 = np.random.laplace(0, 1/epsilon)
+randomSample6 = np.random.laplace(0, 1/epsilon)
+randomSample7 = np.random.laplace(0, 1/epsilon)
+randomSample8 = np.random.laplace(0, 1/epsilon)
+randomSample9 = np.random.laplace(0, 1/epsilon)
+randomSample10 = np.random.laplace(0, 1/epsilon)
+randomSample11 = np.random.laplace(0, 1/epsilon)
+randomSample12 = np.random.laplace(0, 1/epsilon)
+randomSample13 = np.random.laplace(0, 1/epsilon)
+randomSample14 = np.random.laplace(0, 1/epsilon)
+randomSample15 = np.random.laplace(0, 1/epsilon)
+randomSample16 = np.random.laplace(0, 1/epsilon)
+
+# q(D')=q(D)+r
+NPreschool = Preschool+randomSample1
+Nfirst4th = first4th+randomSample2
+Nfifth6th = fifth6th+randomSample3
+Nninth = ninth+randomSample4
+Ntwelfth = twelfth+randomSample5
+Nseventh8th = seventh8th+randomSample6
+Ntenth = tenth+randomSample7
+Neleventh = eleventh+randomSample8
+NAssocAcdm = AssocAcdm+randomSample9
+NDoctorate = Doctorate+randomSample10
+NAssocVoc = AssocVoc+randomSample11
+NProfSchool = ProfSchool+randomSample12
+NMasters = Masters+randomSample13
+NSomeCollege = SomeCollege+randomSample14
+NHSGrad = HSGrad+randomSample15
+NBachelors = Bachelors+randomSample16
+
+educationLevel = ['Preschool', '1st-4th', '5th-6th', '9th', '12th', '7th-8th', '10th', '11th',
+                   'Assoc-Acdm', 'Doctorate', 'Assoc-Voc', 'Prof School', 'Masters', 'Some College', 'HS-Grad', 'Bachelors']
+values=[Preschool, first4th, fifth6th, ninth, twelfth, seventh8th, tenth, eleventh,
+         AssocAcdm, Doctorate, AssocVoc, ProfSchool, Masters, SomeCollege, HSGrad, Bachelors]
+
+Nvalues=[NPreschool, Nfirst4th, Nfifth6th, Nninth, Ntwelfth, Nseventh8th, Ntenth, Neleventh,
+         NAssocAcdm, NDoctorate, NAssocVoc, NProfSchool, NMasters, NSomeCollege, NHSGrad, NBachelors]
+
+x = np.arange(len(educationLevel))
+width = 0.3
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width/2, values, width, label='Actual')
+rects2 = ax.bar(x + width/2, Nvalues, width, label='Private')
+
+ax.set_ylabel('Number of People')
+ax.set_title('Education Levels of People With Income >=50K')
+ax.set_xlabel('Education Level')
+ax.set_xticks(x)
+ax.set_xticklabels(educationLevel)
+ax.legend()
+
+plt.xticks(rotation=45)
+plt.xticks(fontsize=5) #I set it in order to demonstrate the Education Level label.
+
+fig.tight_layout()
+
+plt.show()
+
+total=0
+total+=abs(randomSample1)
+total+=abs(randomSample2)
+total+=abs(randomSample3)
+total+=abs(randomSample4)
+total+=abs(randomSample5)
+total+=abs(randomSample6)
+total+=abs(randomSample7)
+total+=abs(randomSample8)
+total+=abs(randomSample9)
+total+=abs(randomSample10)
+total+=abs(randomSample11)
+total+=abs(randomSample12)
+total+=abs(randomSample13)
+total+=abs(randomSample14)
+total+=abs(randomSample15)
+total+=abs(randomSample16)
+
+print(total)
+print("Error= ", total/16)
+
+
 
